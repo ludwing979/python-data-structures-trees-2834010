@@ -38,6 +38,23 @@ class Node:
 
         print("Value is not in tree")
 
+    def add(self, data):
+        if self.data == data:
+            return
+
+        if data < self.data:
+            if self.left is None:
+                self.left = Node(data)
+            else:
+                self.left.add(data)
+
+        if data > self.data:
+            if self.right is None:
+                self.right = Node(data)
+            else:
+                self.right.add(data)
+
+        print("Value is not in tree")
 
     def getNodesAtDepth(self, depth, nodes=[]):
         if depth == 0:
@@ -101,6 +118,9 @@ class Tree:
     def search(self, target):
         return self.root.search(target)
 
+    def add(self, data):
+        return self.root.add(data)
+
     def getNodesAtDepth(self, depth):
         return self.root.getNodesAtDepth(depth)
 
@@ -111,5 +131,7 @@ class Tree:
 tree = Tree(Node(50))
 tree.root.left = Node(25)
 tree.root.right = Node(75)
-
+tree.add(10)
+tree.add(76)
+tree.add(75)
 tree.print()
