@@ -38,6 +38,17 @@ class Node:
 
         print("Value is not in tree")
 
+    def getNodesAtDepth(self, depth, nodes=[]):
+        if depth == 0:
+            nodes.append(self.data)
+            return nodes
+
+        if self.left:
+            self.left.getNodesAtDepth(depth-1, nodes)
+        if self.right:
+            self.right.getNodesAtDepth(depth-1, nodes)
+        return nodes
+
     def height(self, h=0):
         leftHeight = self.left.height(h+1) if self.left else h 
         rightHeight = self.right.height(h+1) if self.right else h
@@ -50,6 +61,9 @@ class Tree:
 
     def search(self, target):
         return self.root.search(target)
+
+    def getNodesAtDepth(self, depth):
+        return self.root.getNodesAtDepth(depth)
 
     def height(self):
         return self.root.height()
@@ -65,7 +79,4 @@ tree.root.left.left.left = Node(5)
 tree.root.left.left.right = Node(13)
 tree.root.left.left.left.left = Node(2)
 
-print(tree.height())
-
-tree = Tree(Node(50), 'A Very Short Tree')
-print(tree.height())
+print(tree.getNodesAtDepth(2))
